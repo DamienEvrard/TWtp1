@@ -1,4 +1,5 @@
 package galerie.entity;
+import java.util.List;
 import javax.persistence.*;
 import lombok.*;
 
@@ -19,5 +20,6 @@ public class Galerie {
     @NonNull
     private String adresse;
     
-    // TODO : Mettre en oeuvre la relation oneToMany vers Exposition
+    @OneToMany(mappedBy = "oraganisateur", cascade= CascadeType.PERSIST)
+    private List<Exposition> expositions;
 }
