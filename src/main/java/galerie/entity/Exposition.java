@@ -12,7 +12,7 @@ public class Exposition {
     private Integer id;
 
     @NonNull
-    private Date dateE;
+    private Date debut;
     
     @NonNull
     private String intitule;
@@ -21,10 +21,12 @@ public class Exposition {
     private int duree;
     
     @ManyToOne(optional = false)
+    @NonNull
     private Galerie oraganisateur;    
     
     @ManyToMany
-    private List<Tableau> tableaux;
+    @JoinTable(name="accrochage",joinColumns = @JoinColumn(name="exposition_id"),inverseJoinColumns = @JoinColumn(name="tableau_id"))
+    private List<Tableau> accrochage;
     
     @OneToMany(mappedBy = "lieuDeVente", cascade= CascadeType.PERSIST)
     private List<Transaction> ventes;

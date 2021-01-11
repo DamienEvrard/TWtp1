@@ -22,7 +22,7 @@ public class Tableau {
     @NonNull
     private int hauteur;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "accrochage")
     @NonNull
     private List<Exposition> organisateur;
     

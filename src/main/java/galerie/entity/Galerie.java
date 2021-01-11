@@ -21,5 +21,6 @@ public class Galerie {
     private String adresse;
     
     @OneToMany(mappedBy = "oraganisateur", cascade= CascadeType.PERSIST)
+    @ToString.Exclude
     private List<Exposition> expositions;
 }
