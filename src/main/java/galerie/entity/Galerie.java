@@ -23,4 +23,17 @@ public class Galerie {
     @OneToMany(mappedBy = "oraganisateur", cascade= CascadeType.PERSIST)
     @ToString.Exclude
     private List<Exposition> expositions;
+    
+    public int ChiffreAffaire(int annee){
+        int chiffreAffaire = 0;
+        
+        for(Exposition e : expositions){
+            if(e.getDebut().getYear()==annee){
+                chiffreAffaire+=e.chiffreAffaire();
+            }
+        }
+        return chiffreAffaire;
+    }
+    
+    
 }

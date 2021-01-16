@@ -17,11 +17,15 @@ public class Transaction {
     private float prixVente;
     
     @ManyToOne
+    @NonNull
     private Personne client;
     
-    @OneToOne
-    private Tableau oeuvre;
+    @OneToOne (cascade = CascadeType.ALL)
+    @NonNull
+    @JoinColumn  (name = "oeuvre_id", unique = true)
+    private  Tableau oeuvre;
     
     @ManyToOne
+    @NonNull
     private Exposition lieuDeVente;
 }

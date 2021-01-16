@@ -30,4 +30,16 @@ public class Exposition {
     
     @OneToMany(mappedBy = "lieuDeVente", cascade= CascadeType.PERSIST)
     private List<Transaction> ventes;
+    
+    
+    public float chiffreAffaire(){
+        float chiffreAff = 0;
+        
+        for(Transaction t:this.ventes){
+            chiffreAff += t.getPrixVente();
+        }
+        return chiffreAff;
+    }
+    
+    
 }

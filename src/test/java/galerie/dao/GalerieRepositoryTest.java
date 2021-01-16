@@ -11,6 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 import galerie.dao.GalerieRepository;
+import galerie.entity.Exposition;
+import galerie.entity.Tableau;
+import galerie.entity.Transaction;
+import java.util.ArrayList;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -55,6 +59,50 @@ public class GalerieRepositoryTest {
         galerieDAO.delete(galerie);
         long nombre = galerieDAO.count();
         assertEquals(2, nombre, "On doit trouver 2 galerie" );
+    }
+    
+    
+    @Test
+    @Sql("test-data_galerie.sql")
+    public void ehiffreAffaire(){
+        Galerie galerie = new Galerie();
+        Exposition expo=new Exposition();
+        Exposition expo1=new Exposition();
+        
+        Tableau tab1= new Tableau();
+        Transaction transac1 = new Transaction();
+        transac1.setOeuvre(tab1);
+        transac1.setPrixVente(10);
+        Tableau tab2= new Tableau();
+        Transaction transac2 = new Transaction();
+        transac2.setOeuvre(tab2);
+        transac2.setPrixVente(10);
+        transac1.setLieuDeVente(expo);
+        transac2.setLieuDeVente(expo);
+        ArrayList<Transaction> ventes = new ArrayList();
+        ventes.add(transac1);
+        ventes.add(transac2);
+        expo.setVentes(ventes);
+        
+        Date date= new Date(2021, 01, 20);
+        Date date1= new Date(2020, 01, 20);
+        expo.setDebut(date);
+        expo1.setDebut(date1);
+        
+        Tableau tab3= new Tableau();
+        Transaction transac3 = new Transaction();
+        transac3.setOeuvre(tab3);
+        transac3.setPrixVente(10);
+        ArrayList<Transaction> ventes2 = new ArrayList();
+        ventes2.add(transac3);
+        expo1.setVentes(ventes2);
+        
+        ArrayList<Exposition> expositions = new ArrayList();
+        expositions.add(expo);
+        expositions.add(expo1);
+        galerie.setExpositions(expositions);
+        
+        assertEquals(20, galerie.ChiffreAffaire(2021), "On doit trouver 20" );
     }
     
     
